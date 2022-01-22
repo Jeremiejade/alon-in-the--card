@@ -62,7 +62,7 @@ export default class Game {
 
   resultDrop(cardIds, dropZone, dragZone) {
     const cards = this.getCardsFromIds(cardIds);
-    const isDropped = this[dropZone].addCards(cards);
+    const isDropped = this[dropZone]?.addCards(cards);
     if (isDropped) {
       this[dragZone].removeCards(cardIds);
       return true;
