@@ -1,4 +1,5 @@
 import interact from 'interactjs';
+import Game from './game';
 
 let deckFront, deckBack, body;
 
@@ -36,16 +37,29 @@ export function printer(game) {
 
   printDeck(game);
   if (game.isEndGame()) {
-    printFinishButton(game)
+    printEndButton(game);
   }
+ 
+  printRestartButton();
 }
 
-function printFinishButton(game) {
+function printEndButton(game) {
   const button = document.createElement('button');
   button.textContent = 'Terminer la partie';
   button.classList.add('finish');
   button.addEventListener('click', () => {
     smartFinish(game)
+  });
+  body.appendChild(button);
+}
+
+function printRestartButton() {
+  const button = document.createElement('button');
+  button.textContent = 'Nouvelle partie';
+  button.classList.add('restart');
+  button.addEventListener('click', () => {
+    resetInteractListeners()
+    new Game();
   });
   body.appendChild(button);
 }
