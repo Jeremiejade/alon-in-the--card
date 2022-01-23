@@ -1,4 +1,5 @@
 import interact from 'interactjs';
+import { Fireworks } from 'fireworks-js';
 import Game from './game';
 
 let deckFront, deckBack, body;
@@ -7,6 +8,7 @@ const CARD_MARGIN = 45;
 
 const dropZones = {};
 const interactListeners = [];
+let fireworks;
 
 export function printer(game) {
   body = document.getElementById('body');
@@ -39,7 +41,20 @@ export function printer(game) {
   if (game.isEndGame()) {
     printEndButton(game);
   }
- 
+  if(game.isFinish()){
+    fireworks = new Fireworks(body, {
+      particles: 120,
+      trace: 9,
+      boundaries: {
+        visible: true,
+        x: 50,
+        y: 50,
+        width: body.clientWidth,
+        height: body.clientHeight
+      }
+    });
+    fireworks.start()
+  }
   printRestartButton();
 }
 
@@ -59,6 +74,9 @@ function printRestartButton() {
   button.classList.add('restart');
   button.addEventListener('click', () => {
     resetInteractListeners()
+    if(fireworks){
+      fireworks.stop();
+    }
     new Game();
   });
   body.appendChild(button);
@@ -315,7 +333,7 @@ function findCardMatch(game) {
     const pillCard = pillCardWithZone.card
     columnsCardWithZone.forEach(columnCardWithZone => {
       const columnCard = columnCardWithZone.card
-      if(!columnCard) {
+      if (!columnCard) {
         return
       }
       if ((!pillCard && columnCard.value === 1)
