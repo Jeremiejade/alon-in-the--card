@@ -1,6 +1,6 @@
 import interact from 'interactjs';
 
-let deckFront, deckBack;
+let deckFront, deckBack, body;
 
 const CARD_MARGIN = 45;
 
@@ -8,6 +8,7 @@ const dropZones = {};
 const interactListeners = [];
 
 export function printer(game) {
+  body = document.getElementById('body');
   resetInteractListeners();
   initBody();
   deckFront = document.querySelector('.deck .front');
@@ -123,12 +124,6 @@ function makeDrawnCardDraggable(game, card, dragZone) {
   interactListeners.push(`#${card.id}`);
   interact(`#${card.id}`).draggable({
     inertia: true,
-    /*modifiers: [
-      interact.modifiers.restrictRect({
-        restriction: 'parent',
-        endOnly: true
-      })
-    ],*/
     autoScroll: true,
     listeners: {
       start(evt) {
@@ -192,14 +187,16 @@ function resetDragElement(target) {
 }
 
 function dragMoveListener(event) {
-  const target = event.target
-  let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-  let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+  const target = event.target;
 
-  target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+  let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+  let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-  target.setAttribute('data-x', x)
-  target.setAttribute('data-y', y)
+  if(!(event.rect.right >= body.offsetWidth || event.rect.bottom >= body.offsetHeight)){
+    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
 }
 
 function isInDropZone(positionX, positionY) {
@@ -218,7 +215,7 @@ function isInDropZone(positionX, positionY) {
 }
 
 function initBody() {
-  document.getElementById('body').innerHTML = `
+  body.innerHTML = `
   <div class="top-row">
       <div class="final-pills">
         <div id="pill1" class="pill"></div>
