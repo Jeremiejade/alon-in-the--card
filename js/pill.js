@@ -24,4 +24,8 @@ export default class Pill extends CardsPile{
     }
     return false;
   }
+
+  isFullFilled() {
+    return this.column.length === 13;
+  }
 }

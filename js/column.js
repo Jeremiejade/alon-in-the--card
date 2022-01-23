@@ -47,4 +47,19 @@ export default class Column extends CardsPile{
     }
   }
 
+  get latsCardOfColumnWithPosition() {
+
+    if(this.column.length == 0) {
+      return null;
+    }
+    return {
+        card: this.column[this.column.length -1],
+        index: this.column.length
+      };
+  }
+
+  isEmpty() {
+    return this.pill.length === 0;
+  }
+
 }

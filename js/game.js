@@ -25,6 +25,14 @@ export default class Game {
     this._init();
   }
 
+  get pills() {
+    return [this.pill1, this.pill2, this.pill3, this.pill4];
+  }
+
+  get columns() {
+    return [this.column1, this.column2, this.column3, this.column4, this.column5, this.column6, this.column7];
+  }
+
   _init() {
     const cards = createCards();
     this.cards = cards;
@@ -71,10 +79,9 @@ export default class Game {
   }
 
   smartAction(cardId, fromZone) {
-    const pills = [this.pill1, this.pill2, this.pill3, this.pill4];
     const cards = this.getCardsFromIds([cardId]);
     let isSmartPlaced = false;
-    pills.forEach((pill)=> {
+    this.pills.forEach((pill)=> {
       if(!isSmartPlaced) {
         isSmartPlaced = pill.addCards(cards);
       }
@@ -94,4 +101,22 @@ export default class Game {
       });
   }
 
+  isEndGame() {
+    return this.deck.length === 0
+    && this.drawnCards.isEmpty()
+    && this.column1.isEmpty()
+    && this.column2.isEmpty()
+    && this.column3.isEmpty()
+    && this.column4.isEmpty()
+    && this.column5.isEmpty()
+    && this.column6.isEmpty()
+    && this.column7.isEmpty();
+  }
+
+  isFinish() {
+    return this.pill1.isFullFilled()
+    && this.pill2.isFullFilled()
+    && this.pill3.isFullFilled()
+    && this.pill4.isFullFilled();
+  }
 }

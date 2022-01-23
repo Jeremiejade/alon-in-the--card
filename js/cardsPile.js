@@ -17,4 +17,8 @@ export default class CardsPile {
   removeCards([cardId]) {
     this.column = this.column.filter(card => cardId !== card.id);
   }
+
+  isEmpty() {
+    return this.column.length === 0;
+  }
 }
