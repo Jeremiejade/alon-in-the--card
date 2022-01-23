@@ -70,6 +70,22 @@ export default class Game {
     return false;
   }
 
+  smartAction(cardId, fromZone) {
+    const pills = [this.pill1, this.pill2, this.pill3, this.pill4];
+    const cards = this.getCardsFromIds([cardId]);
+    let isSmartPlaced = false;
+    pills.forEach((pill)=> {
+      if(!isSmartPlaced) {
+        isSmartPlaced = pill.addCards(cards);
+      }
+    });
+    if(isSmartPlaced) {
+      this[fromZone].removeCards([cardId]);
+      return true;
+    } 
+    return false;
+  } 
+
   getCardsFromIds(ids) {
     return this.cards
       .filter(card => ids.includes(card.id))

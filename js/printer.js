@@ -68,6 +68,7 @@ function printDeck(game) {
   const drawCard = printPill(game.drawnCards.column, deckFront, false);
   if (drawCard) {
     makeDrawnCardDraggable(game, drawCard, 'drawnCards');
+    smartActionOnDblClick(game, drawCard, 'drawnCards');
   }
 }
 
@@ -99,12 +100,16 @@ function printListCard(cards, container, game, columnId, size) {
       el.style.left = '0';
     }else{
       el.style.left = `${-10 + size}px`
-
     }
+
     el.style.top = index === 0 ? `${-10 - size}px`:`${CARD_MARGIN - 10}px`;
     containerCache.appendChild(el);
     containerCache = el;
-    makeDrawnCardDraggable(game, el, columnId)
+    makeDrawnCardDraggable(game, el, columnId);
+    
+    if(index === cards.length -1) {
+      smartActionOnDblClick(game, el, columnId)
+    }
   });
   dropZones[container.id] = {
     startX: container.offsetLeft,
@@ -154,6 +159,16 @@ function makeDrawnCardDraggable(game, card, dragZone) {
       }
     }
   });
+}
+
+function smartActionOnDblClick(game, card, fromZone) {
+  const target = document.getElementById(card.id);
+  target.addEventListener('dblclick', () => {
+    const isSmartPlaced = game.smartAction(card.id, fromZone);
+    if(isSmartPlaced) {
+      printer(game);
+    }
+});
 }
 
 function getTargetListId(target) {
