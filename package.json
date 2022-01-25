@@ -2,16 +2,20 @@
   "name": "alon-in-the-carte",
   "version": "1.0.0",
   "description": "",
-  "source": "game.html",
+  "source": "index.html",
   "scripts": {
+    "start": "parcel dist/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx parcel game.html",
-    "build": "parcel build"
+    "dev": "npx parcel",
+    "build": "parcel build",
+    "predeploy": "rm -rf dist && parcel build index.html --public-url /alon-in-the--card",
+    "deploy": "gh-pages -d dist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.1.1",
+    "gh-pages": "^3.2.3",
     "parcel": "^2.1.1"
   },
   "dependencies": {
