@@ -42,20 +42,28 @@ export function printer(game) {
     printEndButton(game);
   }
   if(game.isFinish()){
-    fireworks = new Fireworks(body, {
-      particles: 120,
-      trace: 9,
-      boundaries: {
-        visible: true,
-        x: 50,
-        y: 50,
-        width: body.clientWidth,
-        height: body.clientHeight
-      }
-    });
-    fireworks.start()
+    launchFireworks();
   }
   printRestartButton();
+}
+
+function launchFireworks() {
+  body.classList.add('finish');
+  const bravo = document.createElement('p');
+  bravo.textContent = 'Bravos !!';
+  bravo.classList.add('bravo');
+  body.appendChild(bravo);
+  fireworks = new Fireworks(body, {
+    particles: 120,
+    trace: 9,
+    boundaries: {
+      x: 50,
+      y: 50,
+      width: body.clientWidth,
+      height: body.clientHeight
+    }
+  });
+  fireworks.start()
 }
 
 function printEndButton(game) {
@@ -308,6 +316,7 @@ function resetInteractListeners() {
 
 function smartFinish(game) {
   if (game.isFinish()) {
+    launchFireworks();
     return
   }
   const matchedCard = findCardMatch(game)

@@ -14,6 +14,18 @@ body {
   border: solid 10px rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   overflow: hidden;
+
+  &.finish::after {
+    content : "";
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(0,0,0);
+    animation: draken 1s forwards;
+  }
 }
 
 button {
@@ -22,6 +34,7 @@ button {
   border: solid 1px rgba(255, 255, 255, 0.1);
   padding: 15px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  z-index: 200;
 
   &:hover {
     transition: all .5s;
@@ -81,4 +94,43 @@ canvas {
   position:absolute;
   top:0;
   z-index: 100;
+}
+
+.bravo {
+  position: absolute;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15vw;
+  font-weight: bold;
+  animation: distort 400ms infinite;
+  top: 30%;
+  width: 100%;
+  text-align: center;
+  color:rgba(0, 0, 0, 0.5)
+}
+
+@keyframes distort {
+  0% {
+      text-shadow: 5px 4px #f44336, -5px -6px #2196f3;
+  }
+  25% {
+      text-shadow: -5px -6px #f44336, 5px 4px #2196f3;
+  }
+  50% {
+      text-shadow: 5px -4px #f44336, -8px 4px #2196f3;
+  }
+  75% {
+      text-shadow: -8px -4px #f44336, -5px -4px #2196f3;
+  }
+  100% {
+      text-shadow: -5px 0 #f44336, 5px -4px #2196f3;
+  }
+}
+
+@keyframes draken {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: .3;
+  }
 }
