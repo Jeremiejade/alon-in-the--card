@@ -41,7 +41,9 @@ button {
 .top-row,
 .bottom-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  max-width: 1450px;
+  margin: 0 auto;
 }
 
 .final-pills,
