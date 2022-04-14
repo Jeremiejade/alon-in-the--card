@@ -21,4 +21,12 @@ export default class CardsPile {
   isEmpty() {
     return this.column.length === 0;
   }
+
+  resetColumn(state) {
+    this.column = [...state];
+  }
+
+  getState() {
+    return this.column;
+  }
 }

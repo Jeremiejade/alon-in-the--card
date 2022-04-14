@@ -1,4 +1,5 @@
 import {printer} from './printer';
+import Memory from './memory';
 import CardsPile from './cardsPile';
 import Column from './column';
 import Pill from './pill';
@@ -21,6 +22,8 @@ export default class Game {
     this.pill2 = new Pill();
     this.pill3 = new Pill();
     this.pill4 = new Pill();
+
+    this.memory = new Memory(this);
 
     this._init();
   }

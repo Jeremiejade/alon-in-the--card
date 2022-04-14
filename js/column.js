@@ -2,7 +2,7 @@ import CardsPile from './cardsPile';
 import {getColorSide} from './utils';
 
 
-export default class Column extends CardsPile{
+export default class Column extends CardsPile {
   constructor() {
     super()
     this.pill = [];
@@ -21,6 +21,18 @@ export default class Column extends CardsPile{
 
   get color() {
     return getColorSide(this.lastCard.color);
+  }
+
+  resetColumnAndPill(columnCards, pillCards) {
+    this.column = [...columnCards];
+    this.pill = [...pillCards];
+  }
+
+  getState() {
+    return {
+      column: this.column,
+      pill: this.pill
+    }
   }
 
   addCards(cards) {
@@ -42,20 +54,20 @@ export default class Column extends CardsPile{
 
   removeCards(cardIds) {
     this.column = this.column.filter(card => !cardIds.includes(card.id));
-    if(this.column.length === 0 && this.pill.length > 0){
+    if (this.column.length === 0 && this.pill.length > 0) {
       this.turnCardToFront();
     }
   }
 
   get latsCardOfColumnWithPosition() {
 
-    if(this.column.length == 0) {
+    if (this.column.length == 0) {
       return null;
     }
     return {
-        card: this.column[this.column.length -1],
-        index: this.column.length
-      };
+      card: this.column[this.column.length - 1],
+      index: this.column.length
+    };
   }
 
   isEmpty() {
